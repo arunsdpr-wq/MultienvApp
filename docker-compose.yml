@@ -79,8 +79,8 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:5000}
     depends_on:
-      - backend-dev
-      - backend-prod
+      mongodb:
+        condition: service_healthy
     networks:
       - multienv-network
     restart: unless-stopped

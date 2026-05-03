@@ -67,15 +67,30 @@ This starts:
 - Backend (Flask) production server on port 5001 with Gunicorn
 - Frontend (React) on port 3000
 
-### 5. Run All Services (dev + prod backends)
+### 5. Run All Services (MongoDB + Frontend only)
 
 ```bash
-# Run without specifying profile (includes all services except those with specific profiles)
+# Run without profiles (includes services without specific profiles)
 docker-compose up -d
 
-# This will start backend-prod, frontend, and MongoDB
-# To include dev backend as well, explicitly specify it
-docker-compose up -d backend-dev backend-prod mongodb
+# This will start MongoDB and Frontend
+# Backend services are only available via profiles
+```
+
+### 6. Run Specific Combinations
+
+```bash
+# Development backend + MongoDB + Frontend
+docker-compose --profile dev up -d
+
+# Production backend + MongoDB + Frontend
+docker-compose --profile prod up -d
+
+# All backends + MongoDB + Frontend
+docker-compose --profile dev --profile prod up -d
+
+# Just MongoDB and Frontend
+docker-compose up -d
 ```
 
 ## Available Services
