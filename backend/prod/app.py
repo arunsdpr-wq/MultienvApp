@@ -12,7 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+#app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+app.config['MONGO_URI'] = "mongodb+srv://proadmin:prod_secure_password_123@localhost:27017/multienv_prod?authSource=admin"
 
 # Initialize MongoDB client
 mongo = PyMongo(app)
@@ -26,6 +27,8 @@ def index():
 def add():
     title = request.form.get('title')
     description = request.form.get('description')
+    if 'MONGO_URI' not in app.config:
+        app.config['MONGO_URI'] = os.getenv('MONGO_URI')
     if title:
         todo = {
             'title': title,
